@@ -1,0 +1,35 @@
+# An example of using ruby to read a YAML file into a set of ruby objects (hashes, in this example):
+# I added newlines between the irb commands for legibility's sake.
+
+woods@beidleheimer ~/src/git/bus (master)↑ $ cat config/database.yml 
+
+development:
+  adapter: postgresql
+  host: localhost
+  username: bus
+  database: bus_development
+  password: asphyxiate2-buttonholers
+
+test:
+  adapter: postgresql
+  host: localhost
+  username: bus
+  database: bus_test
+  password: asphyxiate2-buttonholers
+
+woods@beidleheimer ~/src/git/bus (master)↑ $ irb
+
+irb(main):001:0> require 'yaml'
+=> true
+
+irb(main):002:0> config = YAML::load_file('config/database.yml')
+=> {"development"=>{"username"=>"bus", "adapter"=>"postgresql", "database"=>"bus_development", "host"=>"localhost", "password"=>"asphyxiate2-buttonholers"}, "test"=>{"username"=>"bus", "adapter"=>"postgresql", "database"=>"bus_test", "host"=>"localhost", "password"=>"asphyxiate2-buttonholers"}}
+
+irb(main):003:0> config['development']
+=> {"username"=>"bus", "adapter"=>"postgresql", "database"=>"bus_development", "host"=>"localhost", "password"=>"asphyxiate2-buttonholers"}
+
+irb(main):004:0> config['development']['username']
+=> "bus"
+
+irb(main):005:0> config['development']['password']
+=> "asphyxiate2-buttonholers"
